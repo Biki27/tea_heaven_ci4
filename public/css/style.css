@@ -1,0 +1,80 @@
+/**
+ * Tea Haven — Global Stylesheet
+ * Supplements Bootstrap 5. Imported by header layout.
+ */
+
+:root {
+  --leaf-green: #6b8e23;
+  --tea-gold:   #d4af37;
+  --warm-brown: #4e342e;
+  --cream:      #f5f5dc;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 8px; }
+::-webkit-scrollbar-track  { background: #f1f1f1; }
+::-webkit-scrollbar-thumb  { background: #c5c5c5; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--leaf-green); }
+
+/* ── Selection ───────────────────────────────────────────── */
+::selection { background: rgba(107, 142, 35, .2); }
+
+/* ── Smooth scroll ───────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+/* ── Focus ring ──────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--leaf-green);
+  outline-offset: 3px;
+}
+
+/* ── Utility classes ─────────────────────────────────────── */
+.text-green  { color: var(--leaf-green) !important; }
+.text-gold   { color: var(--tea-gold)   !important; }
+.text-brown  { color: var(--warm-brown) !important; }
+.bg-green    { background: var(--leaf-green) !important; }
+.bg-cream    { background: var(--cream)      !important; }
+
+.btn-tea {
+  background: var(--leaf-green);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 28px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+  display: inline-block;
+  text-decoration: none;
+}
+.btn-tea:hover {
+  background: #5a7a1a;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(107,142,35,.3);
+}
+
+/* ── Flash messages (rendered in header) ─────────────────── */
+.flash-success {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: .9rem;
+  border-bottom: 1px solid #c3e6cb;
+}
+.flash-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: .9rem;
+  border-bottom: 1px solid #f5c6cb;
+}
+
+/* ── Page transition ─────────────────────────────────────── */
+body {
+  opacity: 0;
+  animation: fadeIn .35s ease forwards;
+}
+@keyframes fadeIn { to { opacity: 1; } }

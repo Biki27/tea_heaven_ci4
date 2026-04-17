@@ -1,0 +1,605 @@
+/* Now let me create the main stylesheet with modern design:
+Action: file_editor create /app/public/css/modern-theme.css --file-text "/* ============================================ 
+   Tea Haven - Modern Theme Stylesheet
+   ============================================ */
+
+:root {
+    --leaf-green: #6b8e23;
+    --warm-brown: #4e342e;
+    --tea-gold: #d4af37;
+    --light-bg: #f9fafb;
+    --dark-text: #111827;
+    --medium-text: #6b7280;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-text);
+    background: var(--light-bg);
+}
+
+/* ============================================
+   NAVBAR - Modern Glassmorphism
+   ============================================ */
+.tea-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.tea-nav.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+    padding: 5px 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--warm-brown) !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-2px);
+}
+
+.logo-img {
+    height: 40px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.logo-img:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.nav-link {
+    color: #555 !important;
+    font-weight: 500;
+    padding: 10px 18px !important;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 0%;
+    height: 2px;
+    background: var(--leaf-green);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 60%;
+    transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--leaf-green) !important;
+    background: rgba(107, 142, 35, 0.1);
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: none;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    transition: all 0.2s;
+    border-radius: 8px;
+    margin: 3px 8px;
+}
+
+.dropdown-item:hover {
+    background: rgba(107, 142, 35, 0.1);
+    color: var(--leaf-green);
+    transform: translateX(5px);
+}
+
+/* ============================================
+   CART & USER ICONS
+   ============================================ */
+.nav-icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    transition: all 0.3s;
+    text-decoration: none;
+    position: relative;
+}
+
+.nav-icon-btn:hover {
+    background: rgba(107, 142, 35, 0.15);
+    color: var(--leaf-green);
+    transform: translateY(-2px);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, var(--tea-gold), #c49a1d);
+    color: #fff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ============================================
+   BUTTONS - Modern Gradients
+   ============================================ */
+.btn-primary-tea {
+    background: linear-gradient(135deg, var(--leaf-green), #55711b);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 142, 35, 0.3);
+}
+
+.btn-primary-tea:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 142, 35, 0.4);
+    background: linear-gradient(135deg, #55711b, var(--leaf-green));
+}
+
+.btn-outline-tea {
+    border: 2px solid var(--leaf-green);
+    color: var(--leaf-green);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-tea:hover {
+    background: var(--leaf-green);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   HERO SECTION - Video Background
+   ============================================ */
+.slide-banner {
+    position: relative;
+    height: 85vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+}
+
+.slide-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+    z-index: -1;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.slide-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideUp 0.8s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.slide-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+    color: #f5f5f5;
+    line-height: 1.6;
+}
+
+.slide-btn {
+    background: linear-gradient(135deg, var(--leaf-green), #55711b);
+    padding: 15px 40px;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+    box-shadow: 0 8px 20px rgba(107, 142, 35, 0.4);
+}
+
+.slide-btn:hover {
+    background: linear-gradient(135deg, #55711b, var(--leaf-green));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(107, 142, 35, 0.5);
+    color: #fff;
+}
+
+.slide-dots {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    padding: 0;
+}
+
+.dot.active {
+    background: var(--leaf-green);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(107, 142, 35, 0.6);
+}
+
+/* ============================================
+   PRODUCT CARDS - Modern Design
+   ============================================ */
+.product-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(107, 142, 35, 0.05), rgba(212, 175, 55, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 0;
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.image-box {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.product-card:hover .image-box img {
+    transform: scale(1.1) rotate(3deg);
+}
+
+.sale-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #e53935, #c62828);
+    color: white;
+    padding: 6px 18px;
+    font-size: 12px;
+    border-radius: 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(229, 57, 53, 0.4);
+    z-index: 2;
+}
+
+.price {
+    font-size: 1.1rem;
+    margin: 15px 0;
+}
+
+.price .new {
+    color: var(--leaf-green);
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.price .old {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 1rem;
+    margin-left: 8px;
+}
+
+/* ============================================
+   SECTION STYLING
+   ============================================ */
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+    text-align: center;
+    color: var(--warm-brown);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--leaf-green), var(--tea-gold));
+    border-radius: 2px;
+}
+
+/* ============================================
+   FOOTER - Modern Design
+   ============================================ */
+.site-footer {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    padding: 60px 0 20px;
+    color: #b0b0b0;
+}
+
+.site-footer h6 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    padding: 8px 0;
+}
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--leaf-green);
+    transform: translateX(5px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-icons a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #3a3a3a;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    background: var(--leaf-green);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(107, 142, 35, 0.4);
+}
+
+/* ============================================
+   FLASH MESSAGES
+   ============================================ */
+.flash-message {
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.flash-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.flash-error {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 991px) {
+    .slide-title {
+        font-size: 2rem;
+    }
+    
+    .slide-content {
+        padding: 40px 30px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .social-icons {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .logo-img {
+        height: 35px;
+    }
+}
+
+@media (max-width: 576px) {
+    .slide-banner {
+        height: 70vh;
+        min-height: 500px;
+    }
+    
+    .slide-title {
+        font-size: 1.8rem;
+    }
+    
+    .slide-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}

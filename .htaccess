@@ -1,0 +1,8 @@
+# Tea Haven — Root .htaccess
+# Redirects all web traffic into the /public directory.
+# Place this file in the PROJECT ROOT (not inside /public).
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * CodeIgniter 4 CLI Spark
+ * ─────────────────────────────────────────────────────────────
+ * Run with:
+ *   php spark serve           — start dev server on :8080
+ *   php spark migrate         — run DB migrations
+ *   php spark db:seed         — run seeders
+ *   php spark list            — show all available commands
+ */
+
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR);
+
+$pathsConfig = FCPATH . '../app/Config/Paths.php';
+require realpath($pathsConfig) ?: $pathsConfig;
+
+$paths = new Config\Paths();
+
+require realpath($paths->systemDirectory . '/Boot.php') ?: $paths->systemDirectory . '/Boot.php';
+
+exit(CodeIgniter\Boot::bootSpark($paths));

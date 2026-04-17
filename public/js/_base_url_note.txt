@@ -1,0 +1,2 @@
+<!-- Inject BASE_URL for JS files -->
+<script>const BASE_URL = '<?= base_url() ?>';</script>

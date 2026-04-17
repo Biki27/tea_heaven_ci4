@@ -1,0 +1,20 @@
+ :root {
+    /* Brand Colors */
+    --leaf-green: #6b8e23;
+    --tea-gold: #d4af37;
+    --warm-brown: #4e342e;
+    
+    /* UI Colors */
+    --bg-light: #f8f9fa;
+    --text-dark: #333;
+    --text-muted: #777;
+    
+    /* Typography */
+    --font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+    font-family: var(--font-family);
+    padding-top: 80px; /* Space for fixed navbar */
+}
