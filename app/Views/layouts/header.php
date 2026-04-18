@@ -196,7 +196,6 @@ $userInitial = $userName ? strtoupper(substr(trim($userName), 0, 1)) : 'U';
 </head>
 
 <body>
-
   <script>
     document.addEventListener('DOMContentLoaded', function() {
         const Toast = Swal.mixin({
