@@ -366,7 +366,7 @@ $discount  = (float)(session()->get('promo_discount') ?? 0);
                 </div>
                 <!-- Remove Button -->
                  <!-- add toast confirmation -->
-                <button class="remove-btn" onclick="removeItem(<?= $item['id'] ?>)" title="Remove">
+                <button class="remove-btn" type="button" onclick="removeItem(<?= $item['id'] ?>)" title="Remove">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -466,16 +466,15 @@ $discount  = (float)(session()->get('promo_discount') ?? 0);
   }
 
   function removeItem(cartId) {
-    // 1. Trigger SweetAlert2 Confirmation instead of default confirm()
     Swal.fire({
       title: 'Remove item?',
       text: "Are you sure you want to remove this tea from your cart?",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#e53935', // A warm red for the confirm button
+      confirmButtonColor: '#e53935',  
       cancelButtonColor: '#888',
       confirmButtonText: 'Yes, remove it',
-      background: '#faf7f2', // Matches your light background theme
+      background: '#faf7f2',  
       customClass: {
           confirmButton: 'rounded-pill px-4',
           cancelButton: 'rounded-pill px-4'
@@ -561,7 +560,33 @@ $discount  = (float)(session()->get('promo_discount') ?? 0);
 
   function checkEmpty() {
     const rows = document.querySelectorAll('.cart-item');
-    if (rows.length === 0) location.reload();
+    
+    if (rows.length === 0) {
+      const cartContainer = document.querySelector('.cart-page .container');
+      
+      // Briefly fade out the container
+      cartContainer.style.transition = 'opacity 0.3s ease';
+      cartContainer.style.opacity = '0';
+      
+      setTimeout(() => {
+        // Swap out the entire cart interface for the Empty State HTML
+        cartContainer.innerHTML = `
+          <div class="cart-header-block">
+            <h1><i class="fas fa-shopping-bag me-2"></i>Shopping Cart</h1>
+            <p>Review your tea selection before checkout</p>
+          </div>
+          <div class="empty-cart">
+            <i class="fas fa-shopping-bag"></i>
+            <h3>Your cart is empty</h3>
+            <p>Looks like you haven't added any teas yet.</p>
+            <a href="${BASE}products"><i class="fas fa-mug-hot me-2"></i>Browse Teas</a>
+          </div>
+        `;
+        
+        // Fade the container back in smoothly
+        cartContainer.style.opacity = '1';
+      },  300);
+    }
   }
 </script>
 

@@ -153,9 +153,9 @@ $saving    = ($product['sale_price'] > 0) ? round((1 - $product['sale_price'] / 
                     onclick="addWithQty()">
               <i class="fas fa-cart-plus me-2"></i>Add to Cart
             </button>
-            <button class="btn-wishlist" title="Add to Wishlist">
+            <!-- <button class="btn-wishlist" title="Add to Wishlist">
               <i class="far fa-heart"></i>
-            </button>
+            </button> -->
           </div>
         <?php else: ?>
           <button class="btn-add-cart" disabled>Out of Stock</button>
@@ -229,13 +229,24 @@ function addWithQty() {
 
   fetch(BASE_URL + 'cart/add', {
     method: 'POST',
-    headers: {'Content-Type':'application/x-www-form-urlencoded','X-Requested-With':'XMLHttpRequest'},
+    headers: {
+        'Content-Type':'application/x-www-form-urlencoded',
+        'X-Requested-With':'XMLHttpRequest'
+    },
     body: `product_id=${pid}&qty=${qty}`,
   })
   .then(r => r.json())
   .then(d => {
     if (d.status === 'ok') {
-      document.querySelectorAll('#cartBadge,.cart-badge').forEach(el => el.textContent = d.cart_count);
+      // Fix: Update the text AND make sure the badge becomes visible
+      document.querySelectorAll('#cartBadge, .cart-badge').forEach(el => {
+          el.textContent = d.cart_count;
+          if (d.cart_count > 0) {
+              el.style.display = 'flex'; // Un-hide the badge
+              el.style.transform = 'scale(1.4)'; // Pop animation
+              setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+          }
+      });
       showToast(`"${name}" added to cart!`, 'success');
     } else {
       showToast(d.message || 'Error adding to cart.', 'error');

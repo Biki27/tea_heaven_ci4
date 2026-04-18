@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'tea-haven/tea-heaven',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'cbd02ae3e137cc79d814a856010f82e95efc6077',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -191,9 +191,9 @@
             'dev_requirement' => false,
         ),
         'tea-haven/tea-heaven' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'cbd02ae3e137cc79d814a856010f82e95efc6077',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
