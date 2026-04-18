@@ -9,18 +9,12 @@ use League\OAuth2\Client\Provider\Facebook;
 
 class Auth extends BaseController
 {
+ 
     public function loginPage()
     {
         if (session()->get('user_id')) {
             return redirect()->to('/');
         }
-        
-        // Optional: If they just browse to /auth/login directly from the cart, save the previous URL
-        $previousUrl = previous_url();
-        if ($previousUrl && strpos($previousUrl, 'auth') === false) {
-             session()->set('redirect_after_login', $previousUrl);
-        }
-
         return view('auth/login', ['cartCount' => (new CartModel())->getCount()]);
     }
 
@@ -51,10 +45,11 @@ class Auth extends BaseController
         }
 
         $this->_createSession($user);
-        (new CartModel())->mergeSessionCart($user['id'], session_id());
 
-        // Use the new dynamic redirect helper
-        return $this->_redirectSuccess('Welcome back, ' . $user['name'] . '!');
+        // Merge guest cart
+        (new CartModel())->mergeSessionCart($user['id'],session_id());
+
+        return redirect()->to(session()->get('redirect_after_login') ?? '/');
     }
 
     // ── Register ──────────────────────────────────────────────
@@ -88,9 +83,9 @@ class Auth extends BaseController
 
         $user = $userModel->find($id);
         $this->_createSession($user);
-        (new CartModel())->mergeSessionCart($user['id'], session_id());
+        (new CartModel())->mergeSessionCart($user['id'],session_id());
 
-        return $this->_redirectSuccess('Welcome to Tea Haven!');
+        return redirect()->to('/')->with('success', 'Welcome to Tea Haven!');
     }
 
     // ── Logout ────────────────────────────────────────────────
@@ -101,15 +96,18 @@ class Auth extends BaseController
         return redirect()->to('/')->with('success', 'You have been logged out.');
     }
 
-    // ── Forgot password ──────────────────────────────────────
+    // ── Forgot password (basic flow) ─────────────────────────
 
     public function forgotPage(): string
     {
         return view('auth/forgot', ['cartCount' => (new CartModel())->getCount()]);
     }
-
+    // pending
     public function forgot()
     {
+        // In production: generate token, email reset link.
+        // For now return a generic message.
+
         return redirect()->back()->with('success', 'If that email exists, a reset link has been sent.');
     }
 
@@ -137,6 +135,7 @@ class Auth extends BaseController
         try {
             $token        = $provider->getAccessToken('authorization_code', ['code' => $code]);
             $googleUser   = $provider->getResourceOwner($token);
+            $googleArray  = $googleUser->toArray();
 
             $userModel = new UserModel();
             $user      = $userModel->findOrCreateFromGoogle([
@@ -147,9 +146,9 @@ class Auth extends BaseController
             ]);
 
             $this->_createSession($user);
-            (new CartModel())->mergeSessionCart($user['id'], session_id());
+            (new CartModel())->mergeSessionCart($user['id'],session_id());
 
-            return $this->_redirectSuccess('Welcome, ' . $user['name'] . '!');
+            return redirect()->to('/')->with('success', 'Welcome, ' . $user['name'] . '!');
         } catch (\Exception $e) {
             return redirect()->to('auth/login')->with('error', 'Google login failed: ' . $e->getMessage());
         }
@@ -190,32 +189,15 @@ class Auth extends BaseController
             ]);
 
             $this->_createSession($user);
-            (new CartModel())->mergeSessionCart($user['id'], session_id());
+            (new CartModel())->mergeSessionCart($user['id'],session_id());
 
-            return $this->_redirectSuccess('Welcome, ' . $user['name'] . '!');
+            return redirect()->to('/')->with('success', 'Welcome, ' . $user['name'] . '!');
         } catch (\Exception $e) {
             return redirect()->to('auth/login')->with('error', 'Facebook login failed: ' . $e->getMessage());
         }
     }
 
     // ── Private helpers ───────────────────────────────────────
-
-    /**
-     * Determines where to redirect after a successful login/register
-     * and clears the session variable so it doesn't get stuck.
-     */
-    private function _redirectSuccess(string $message)
-    {
-        $redirectUrl = session()->get('redirect_after_login') ?? '/';
-        
-        // Prevent redirecting back to login/logout/register pages
-        if (strpos($redirectUrl, 'auth') !== false) {
-            $redirectUrl = '/';
-        }
-
-        session()->remove('redirect_after_login'); 
-        return redirect()->to($redirectUrl)->with('success', $message);
-    }
 
     private function _createSession(array $user): void
     {

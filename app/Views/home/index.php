@@ -116,9 +116,14 @@ $pageTitle = 'Premium Organic Teas';
         <?php if ($p['badge']): ?>
           <span class="<?= $p['badge'] === 'Sale' ? 'sale-badge' : ($p['badge'] === 'New' ? 'new-badge' : 'pop-badge') ?>"><?= esc($p['badge']) ?></span>
         <?php endif; ?>
-        <div class="image-circle">
+        <a href="<?= base_url('products/' . $p['slug']) ?>">
+          <div class="image-circle">
+            <img src="<?= esc($p['image']) ?>" alt="<?= esc($p['name']) ?>" loading="lazy">
+          </div>
+        </a>
+        <!-- <div class="image-circle">
           <img src="<?= esc($p['image']) ?>" alt="<?= esc($p['name']) ?>" loading="lazy">
-        </div>
+        </div> -->
         <h3><?= esc($p['name']) ?></h3>
         <div class="price-line">
           <span class="new-price">₹<?= number_format($price, 2) ?></span>
@@ -200,7 +205,7 @@ $pageTitle = 'Premium Organic Teas';
     $cats = [
       ['label'=>'Black Tea',   'slug'=>'black-tea',   'img'=>'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500'],
       ['label'=>'Masala Chai', 'slug'=>'masala-chai', 'img'=>'https://images.unsplash.com/photo-1561336313-0bd5e0b27ec8?w=500'],
-      ['label'=>'Herbal Tea',  'slug'=>'herbal-tea',  'img'=>'https://images.unsplash.com/photo-1515694346937-94d85e41e93a?w=500'],
+      ['label'=>'Herbal Tea',  'slug'=>'herbal-tea',  'img'=>'https://th.bing.com/th/id/OIP.3TpyV8jc_W7U-JVyicsX9QHaDt?w=313&h=174&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'],
       ['label'=>'Green Tea',   'slug'=>'green-tea',   'img'=>'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500'],
     ];
     foreach ($cats as $c): ?>

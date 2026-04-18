@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\CartModel;
+use App\Models\ContactMessageModel;
 
 class Contact extends BaseController
 {
@@ -34,11 +35,26 @@ class Contact extends BaseController
             ])->setStatusCode(400);
         }
 
-        // TODO: Send email or save to database
-        // For now, just return success
-        return response()->setJSON([
-            'success' => true,
-            'message' => 'Message sent successfully! We\'ll get back to you soon.',
-        ]);
+        // Save to database
+        $messageModel = new ContactMessageModel();
+        $data = [
+            'name'    => $this->request->getPost('name'),
+            'email'   => $this->request->getPost('email'),
+            'subject' => $this->request->getPost('subject'),
+            'message' => $this->request->getPost('message'),
+            'status'  => 'pending',
+        ];
+
+        if ($messageModel->insert($data)) {
+            return response()->setJSON([
+                'success' => true,
+                'message' => 'Message sent successfully! We\'ll get back to you soon.',
+            ]);
+        } else {
+            return response()->setJSON([
+                'success' => false,
+                'message' => 'Failed to send message. Please try again later.',
+            ])->setStatusCode(500);
+        }
     }
 }

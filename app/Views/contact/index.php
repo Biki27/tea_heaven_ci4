@@ -1,282 +1,326 @@
-<?php
-/**
- * Views/contact/index.php
- * Variables: $cartCount, $pageTitle
- */
-?>
 <?= view('layouts/header', ['cartCount' => $cartCount, 'pageTitle' => $pageTitle]) ?>
 
 <style>
 /* Contact Page Specific Styles */
-.contact-page {
-    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
-                url('https://images.unsplash.com/photo-1532634726-8021309a93b1?w=1800&q=80') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
-    padding: 60px 0 100px;
-    min-height: 100vh;
+:root {
+    --tea-gold: #D4AF37;
+    --leaf-green: #6B8E23;
+    --warm-brown: #4E342E;
+    --light-bg: #faf7f2;
 }
 
-.contact-glass-panel {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 60px;
-    margin-bottom: 100px;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+body {
+    background-color: var(--light-bg);
 }
 
-.contact-title {
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 50px;
-    letter-spacing: 1px;
-    color: #fff;
+/* Hero Section matching the image gradient */
+.contact-hero {
+    position: relative;
+    height: 40vh;
+    min-height: 350px;
+    background: linear-gradient(135deg, #7c9954 0%, #685043 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    color: white;
+    margin-bottom: 60px;
+}
+
+.hero-content {
+    max-width: 600px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.hero-eyebrow {
+    color: var(--tea-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* Form Styling */
+.form-heading {
+    font-weight: 700;
+    color: var(--warm-brown);
+    font-size: 1.8rem;
+}
+
+.form-heading span {
+    color: var(--tea-gold);
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
 }
 
 .form-control {
-    background: rgba(255, 255, 255, 0.95) !important;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 15px;
     font-size: 0.95rem;
-    color: #333;
-}
-
-.form-control::placeholder {
-    color: #999;
+    transition: all 0.3s;
 }
 
 .form-control:focus {
-    background: rgba(255, 255, 255, 0.98) !important;
-    box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.2);
+    border-color: var(--leaf-green);
+    box-shadow: 0 0 0 0.25rem rgba(107, 142, 35, 0.15);
 }
 
-.submit-btn {
-    background: linear-gradient(135deg, var(--leaf-green), #90C695);
+.btn-submit {
+    background-color: var(--leaf-green);
     color: white;
     border: none;
-    padding: 16px;
-    border-radius: 50px;
+    padding: 14px 25px;
     font-weight: 600;
+    border-radius: 8px;
     width: 100%;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.4s;
-    box-shadow: 0 10px 30px rgba(107, 142, 35, 0.3);
+    transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(107, 142, 35, 0.5);
-    background: linear-gradient(135deg, var(--warm-brown), var(--tea-gold));
+.btn-submit:hover {
+    background-color: #5a781d;
 }
 
-.submit-btn:disabled {
-    opacity: 0.6;
+.btn-submit:disabled {
+    background-color: #a0b380;
     cursor: not-allowed;
 }
 
 /* Info Cards */
 .info-card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 35px;
-    border-radius: 18px;
-    text-align: center;
-    height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: 0.3s;
-}
-
-.info-card:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--tea-gold);
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    border-left: 4px solid var(--tea-gold);
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .info-icon {
-    font-size: 2.5rem;
-    color: var(--tea-gold);
-    margin-bottom: 20px;
+    background: rgba(107, 142, 35, 0.1);
+    color: var(--leaf-green);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-.info-card h5 {
-    color: white;
-    font-weight: 600;
-    margin-bottom: 15px;
+.info-content h5 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--warm-brown);
+    margin-bottom: 8px;
 }
 
-.info-card p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.95rem;
+.info-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
     line-height: 1.6;
 }
 
-/* Form Messages */
-.alert {
-    border-radius: 12px;
-    border: none;
+.info-content a {
+    color: var(--leaf-green);
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.form-error {
-    color: #dc3545;
-    font-size: 0.85rem;
-    margin-top: 5px;
-    display: none;
-}
-
-.form-group.error .form-control {
-    border-bottom: 2px solid #dc3545;
-}
-
-.form-group.error .form-error {
-    display: block;
-}
-
-@media (max-width: 768px) {
-    .contact-glass-panel {
-        padding: 30px;
-    }
-
-    .contact-title {
-        font-size: 28px;
-        margin-bottom: 30px;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 
-<div class="contact-page">
-    <div class="container">
-        <h1 class="contact-title">Contact Our Tea Masters</h1>
+<main>
+    <section class="contact-hero">
+        <div class="hero-content px-3">
+            <span class="hero-eyebrow">Get in touch</span>
+            <h1 class="hero-title">Contact Our Tea Masters</h1>
+            <p class="hero-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+    </section>
 
-        <div class="contact-glass-panel">
-            <div class="row g-5">
-                <!-- Contact Form -->
-                <div class="col-lg-7">
-                    <h4 class="mb-4" style="color: var(--tea-gold)">Inquiry Form</h4>
-                    <form id="contactForm">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
-                                    <span class="form-error"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
-                                    <span class="form-error"></span>
-                                </div>
-                            </div>
+    <section class="container mb-5 pb-5">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <h3 class="mb-4 form-heading">Send us a <span>Message</span></h3>
+                
+                <form id="contactForm">
+                    <?= csrf_field() ?>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="name" class="form-control" placeholder="Your name" required>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-                            <span class="form-error"></span>
+                        <div class="col-md-6">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" name="email" class="form-control" placeholder="your@email.com" required>
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="message" name="message" rows="6" placeholder="Your Message..." required></textarea>
-                            <span class="form-error"></span>
+                        <div class="col-12">
+                            <label class="form-label">Subject *</label>
+                            <input type="text" name="subject" class="form-control" placeholder="What is this about?" required>
                         </div>
-                        <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
-                    </form>
-                    <div id="successMessage" class="alert alert-success mt-3" style="display: none;"></div>
-                    <div id="errorMessage" class="alert alert-danger mt-3" style="display: none;"></div>
+                        <div class="col-12">
+                            <label class="form-label">Message *</label>
+                            <textarea name="message" class="form-control" rows="5" placeholder="Tell us more about your inquiry..." required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn-submit" id="submitBtn">SEND MESSAGE</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>Visit Us</h5>
+                        <p>123 Emerald Valley<br>Darjeeling, West Bengal<br>734101, India</p>
+                    </div>
                 </div>
 
-                <!-- Contact Info -->
-                <div class="col-lg-5">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="info-card">
-                                <i class="fa-solid fa-location-dot info-icon"></i>
-                                <h5>Visit the Estate</h5>
-                                <p>123 Emerald Valley, Darjeeling,<br>West Bengal 734101, India</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="info-card">
-                                <i class="fa-solid fa-phone-volume info-icon"></i>
-                                <h5>Direct Line</h5>
-                                <p>Toll Free: 1800-TEA-HAVEN<br>Office: +91 33 2444 0000</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="info-card">
-                                <i class="fa-solid fa-envelope info-icon"></i>
-                                <h5>Email</h5>
-                                <p>info@teaheaven.in<br>support@teaheaven.in</p>
-                            </div>
-                        </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>Call Us</h5>
+                        <p>Toll Free: <strong>1800-TEA-HAVEN</strong><br>
+                        Office: <strong>+91 33 2444 0000</strong><br>
+                        Mon - Fri, 9am - 6pm IST</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>Email Us</h5>
+                        <p>General: <a href="mailto:info@teaheaven.in">info@teaheaven.in</a><br>
+                        Support: <a href="mailto:support@teaheaven.in">support@teaheaven.in</a><br>
+                        We'll reply within 24 hours</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h5>Business Hours</h5>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                        Saturday: 10:00 AM - 4:00 PM<br>
+                        Sunday: Closed</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const form = this;
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
-    const successMsg = document.getElementById('successMessage');
-    const errorMsg = document.getElementById('errorMessage');
 
-    // Clear previous messages
-    successMsg.style.display = 'none';
-    errorMsg.style.display = 'none';
-
-    // Collect form data
-    const formData = new FormData(form);
-
-    try {
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent standard page reload
+        
+        // Update button state to show loading
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>SENDING...';
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
 
-        const response = await fetch('<?= base_url('contact/send') ?>', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        });
+        const formData = new FormData(this);
 
-        const data = await response.json();
-
-        if (data.success) {
-            successMsg.textContent = data.message;
-            successMsg.style.display = 'block';
-            form.reset();
-        } else {
-            if (data.errors) {
-                for (const [field, error] of Object.entries(data.errors)) {
-                    const fieldGroup = form.querySelector(`[name="${field}"]`).closest('.form-group');
-                    fieldGroup.classList.add('error');
-                    fieldGroup.querySelector('.form-error').textContent = Array.isArray(error) ? error[0] : error;
+        try {
+            // Send AJAX request to your CodeIgniter 4 controller
+            const response = await fetch(BASE_URL + 'contact/send', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
-            }
-            errorMsg.textContent = data.message || 'Please fill in all required fields.';
-            errorMsg.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        errorMsg.textContent = 'An error occurred. Please try again later.';
-        errorMsg.style.display = 'block';
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Message';
-    }
-});
+            });
 
-// Clear errors on input
-document.querySelectorAll('.form-control').forEach(field => {
-    field.addEventListener('input', function() {
-        const formGroup = this.closest('.form-group');
-        formGroup.classList.remove('error');
-        formGroup.querySelector('.form-error').textContent = '';
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Success Alert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Message Sent!',
+                    text: data.message,
+                    confirmButtonColor: '#6B8E23', // Matches your --leaf-green
+                    background: '#faf7f2',
+                });
+                contactForm.reset(); // Clear the form
+            } else {
+                // Validation Error Alert
+                let errorHtml = 'Please check your inputs.';
+                if(data.errors) {
+                    // Extract validation errors from the JSON response
+                    errorHtml = Object.values(data.errors).join('<br>');
+                } else if (data.message) {
+                    errorHtml = data.message;
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: errorHtml,
+                    confirmButtonColor: '#6B8E23',
+                    background: '#faf7f2',
+                });
+            }
+        } catch (error) {
+            // Server or Network Error Alert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Something went wrong. Please try again later.',
+                confirmButtonColor: '#6B8E23',
+                background: '#faf7f2',
+            });
+            console.error('Error:', error);
+        } finally {
+            // Restore button state
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
     });
 });
 </script>

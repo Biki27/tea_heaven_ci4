@@ -126,15 +126,34 @@ function showToast(message, type = 'success', duration = 3000) {
 /**
  * Update all cart badge elements on the page.
  */
+// function updateCartBadge(count) {
+//   document.querySelectorAll('#cartBadge, .cart-badge').forEach(el => {
+//     el.textContent = count;
+//     // Small pop animation
+//     el.style.transform = 'scale(1.4)';
+//     setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+//   });
+// }
+/* ── Cart badge ───────────────────────────────────────────── */
+
+/**
+ * Update all cart badge elements on the page.
+ */
 function updateCartBadge(count) {
   document.querySelectorAll('#cartBadge, .cart-badge').forEach(el => {
     el.textContent = count;
-    // Small pop animation
-    el.style.transform = 'scale(1.4)';
-    setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+    
+    // Show the badge if count > 0, otherwise hide it
+    if (count > 0) {
+        el.style.display = 'flex'; // Uses flex to keep the number centered
+        // Small pop animation
+        el.style.transform = 'scale(1.4)';
+        setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+    } else {
+        el.style.display = 'none';
+    }
   });
 }
-
 /**
  * Fetch cart count from server and update badge.
  * Called once on DOMContentLoaded.
